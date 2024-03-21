@@ -46,6 +46,15 @@ module "bastion" {
   public_ip_id = module.virtual-network.public_ip_id
 }
 
+module "vm" {
+  source = "./vm"
+
+  project_name = var.project_name
+  resource_group_name = azurerm_resource_group.odoo_resource_group.name
+  resource_group_location = azurerm_resource_group.odoo_resource_group.location
+  vm_public_subnet_id = module.virtual-network.vm_public_subnet_id
+}
+
 module "kubernetes" {
   source = "./aks"
 

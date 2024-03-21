@@ -9,9 +9,10 @@ resource "azurerm_postgresql_flexible_server" "odoo_postgresql_flexible" {
   name                   = "${var.project_name}-postgresql-flexible"
   resource_group_name    = var.resource_group_name
   location               = var.resource_group_location
-  version                = "12"
+  version                = "16"
   administrator_login    = "odoo16"
   administrator_password = "V!)letEvergarden"
+
   high_availability {
     mode = "ZoneRedundant"
   }

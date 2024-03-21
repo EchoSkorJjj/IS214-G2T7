@@ -18,6 +18,14 @@ resource "azurerm_subnet" "bastion_public_subnet" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
+# Public Subnet for VM
+resource "azurerm_subnet" "vm_public_subnet" {
+  name                 = "${var.project_name}-vm-public-subnet"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.5.0/24"]
+}
+
 # Public IP for Bastion
 resource "azurerm_public_ip" "bastion_public_ip" {
   name                = "${var.project_name}-bastion-public-ip"
@@ -40,29 +48,14 @@ resource "azurerm_network_security_rule" "allow_all_inbound" {
   priority                    = 100
   direction                   = "Inbound"
   access                      = "Allow"
-  protocol                    = "*"
-  source_port_range           = "*"
-  destination_port_range      = "*"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "*"
-  resource_group_name         = var.resource_group_name
-  network_security_group_name = azurerm_network_security_group.private_nsg.name
-}
-
-resource "azurerm_network_security_rule" "allow_http_inbound" {
-  name                        = "AllowHTTPInbound"
-  priority                    = 120
-  direction                   = "Inbound"
-  access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "80"
   source_address_prefix       = "Internet"
-  destination_address_prefix  = azurerm_subnet.aks_private_subnet.address_prefixes[0]
+  destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.private_nsg.name
 }
-
 
 # Subnet for Azure PostgreSQL
 # Enabling Service Endpoints on PostgreSQL Subnet

@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: odoo-production-container
-          image: odoo:16.0
+          image: lurence/odoo-esm-odoo-17:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8069
@@ -38,4 +38,6 @@ spec:
                 secretKeyRef:
                   key: PASSWORD
                   name: odoo-secrets
+      imagePullSecrets:
+      - name: regcred
       restartPolicy: Always

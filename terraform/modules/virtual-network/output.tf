@@ -29,6 +29,10 @@ output "public_ip_id" {
   value = azurerm_public_ip.bastion_public_ip.id
 }
 
+output "vm_public_subnet_id" {
+  value = azurerm_subnet.vm_public_subnet.id
+}
+
 # Output for Private Subnet for AKS
 output "private_subnet_name" {
   value = azurerm_subnet.aks_private_subnet.name
