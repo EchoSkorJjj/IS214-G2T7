@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo-production
+  namespace: odoo-namespace
+  labels:
+    app: odoo-production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: odoo-production
+  template:
+    metadata:
+      name: odoo-production
+      labels:
+        app: odoo-production
+    spec:
+      containers:
+        - name: odoo-production-container
+          image: odoo:16.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8069
+          env:
+            - name: HOST
+              valueFrom:
+                secretKeyRef:
+                  key: HOST
+                  name: odoo-secrets
+            - name: USER
+              valueFrom:
+                secretKeyRef:
+                  key: USER
+                  name: odoo-secrets
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: PASSWORD
+                  name: odoo-secrets
+      restartPolicy: Always

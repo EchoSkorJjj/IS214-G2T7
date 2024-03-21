@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  odoo:
+    user: '0'
+    image: odoo:17.0
+    container_name: odoo
+    ports:
+      - "8079:8069"
+    environment:
+      HOST: odoo-db
+      USER: "big8b7t4nro2t4vnq3qbpi43tnv[23,q[,[32qlt[vmut2vnyoi3"
+      PASSWORD: "helloworld"
+    depends_on:
+      odoo-db:
+        condition: service_healthy
+
+  odoo-db:
+    image: postgres:13.14-alpine3.19
+    container_name: odoo-db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: "helloworld"
+      POSTGRES_USER: "big8b7t4nro2t4vnq3qbpi43tnv[23,q[,[32qlt[vmut2vnyoi3"
+    volumes:
+      - db-data:/var/lib/odoo
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "db_prod" ]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+
+volumes:
+  db-data:
+    driver: local

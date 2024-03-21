@@ -1,0 +1,22 @@
+.vscode
+**/*_password.txt
+.DS_Store
+node_modules
+# Ignore Terraform state files and directories
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform*
+**/secret.yaml
+# Ignore other generated files or directories
+*.log
+*.zip
+*venv*
+ITSA_virtual_env
+modules/users/secrets.tfvars
+modules/plan.json
+modules/plan.out
+venv
+__pycache__
+*.env
+go.work.sum
