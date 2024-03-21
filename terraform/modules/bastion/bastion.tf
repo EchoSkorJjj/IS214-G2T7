@@ -3,6 +3,7 @@ variable "resource_group_name" {}
 variable "resource_group_location" {}
 variable "public_subnet_id" {}
 variable "public_ip_id" {}
+variable "environment" {}
 
 resource "azurerm_bastion_host" "bastion" {
   name                = "${var.project_name}-bastion-host"
@@ -13,5 +14,9 @@ resource "azurerm_bastion_host" "bastion" {
     name                 = "configuration"
     subnet_id            = var.public_subnet_id
     public_ip_address_id = var.public_ip_id
+  }
+
+  tags = {
+    Environment = var.environment
   }
 }

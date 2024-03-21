@@ -2,6 +2,7 @@ variable "project_name" {}
 variable "resource_group_name" {}
 variable "resource_group_location" {}
 variable "private_subnet_id" {}
+variable "environment" {}
 
 resource "azurerm_kubernetes_cluster" "odoo-aks-cluster" {
   name                = "${var.project_name}-aks-cluster"
@@ -28,11 +29,11 @@ resource "azurerm_kubernetes_cluster" "odoo-aks-cluster" {
     network_plugin = "kubenet"
     load_balancer_sku = "standard"
     outbound_type      = "loadBalancer"
-    service_cidr       = "10.0.4.0/22"  # Adjusted to avoid overlap
-    dns_service_ip     = "10.0.4.10"    # Must be within the service_cidr range
+    service_cidr       = "10.0.6.0/24"  # Adjusted to avoid overlap
+    dns_service_ip     = "10.0.6.10"    # Must be within the service_cidr range
   }
 
   tags = {
-    Environment = "Production"
+    Environment = var.environment
   }
 }

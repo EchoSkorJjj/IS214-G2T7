@@ -129,7 +129,6 @@ resource "azurerm_network_security_rule" "allow_bastion_to_postgresql" {
   network_security_group_name = azurerm_network_security_group.db_nsg.name
 }
 
-
 resource "azurerm_network_security_rule" "allow_aks_to_postgresql" {
   name                        = "AllowAksToPostgreSQL"
   priority                    = 110
