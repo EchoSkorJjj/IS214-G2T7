@@ -16,11 +16,15 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "odoo_resource_group" {
-  name     = "${var.project_name}-odoo-resource-group"
+  name     = "${var.project_name}-odoo-resource-group-${var.environment}"
   location = var.azure_region
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
+  }
+
+  tags = {
+    environment = var.environment
   }
 }
 

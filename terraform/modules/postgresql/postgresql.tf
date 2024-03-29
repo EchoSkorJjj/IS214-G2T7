@@ -11,8 +11,8 @@ resource "azurerm_postgresql_flexible_server" "odoo_postgresql_flexible" {
   resource_group_name    = var.resource_group_name
   location               = var.resource_group_location
   version                = "16"
-  administrator_login    = "odoo16"
-  administrator_password = "V!)letEvergarden"
+  administrator_login    = ""
+  administrator_password = ""
 
   high_availability {
     mode = "ZoneRedundant"
@@ -34,5 +34,17 @@ resource "azurerm_postgresql_flexible_server" "odoo_postgresql_flexible" {
 
   tags = {
     Environment = var.environment
+  }
+}
+
+resource "azurerm_postgresql_flexible_server_database" "odoo_database" {
+  name      = "odooCRM"
+  server_id = azurerm_postgresql_flexible_server.odoo_postgresql_flexible.id
+  collation = "en_US.utf8"
+  charset   = "utf8"
+
+  # prevent the possibility of accidental data loss
+  lifecycle {
+    prevent_destroy = false
   }
 }

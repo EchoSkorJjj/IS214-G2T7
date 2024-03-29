@@ -28,8 +28,8 @@ resource "azurerm_virtual_machine" "vm" {
 
   os_profile {
     computer_name  = "hostname"
-    admin_username = "adminuser"
-    admin_password = "ComplexPassw0rd!"
+    admin_username = ""
+    admin_password = ""
   }
 
   os_profile_linux_config {

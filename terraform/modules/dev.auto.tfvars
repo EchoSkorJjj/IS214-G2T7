@@ -1,3 +1,3 @@
 project_name              = "esm"
-azure_region              = "Japan East"
+azure_region              = "North Europe"
 environment               = "Production"
